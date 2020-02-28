@@ -263,13 +263,13 @@ goto :eof
 
 :subopt
 if "!current_profile!" == "" (
-  set current_profile_str=!loc_core_profile_not_selected!
+  set current_profile_str=!loc_profile_not_selected!
 ) else (
   set current_profile_str=!current_profile!
 )
 cls
 call misc.bat :substitute "loc_profile" "message" "profile" "current_profile_str"
-call misc.bat :makemenu "!message!" "sub_options" "ASLUDX" "!loc_menu_select!" "!loc_core_profile_opt!"
+call misc.bat :makemenu "!message!" "sub_options" "ASLUDX" "!loc_menu_select!" "!loc_profile_opt!"
 if "!selection!" == "A" (
   call :addsub
   goto subopt
