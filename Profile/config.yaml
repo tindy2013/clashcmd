@@ -1,0 +1,138 @@
+#---------------------------------------------------#
+## 配置文件需要放置在 $HOME/.config/clash/config.yml
+## 或者运行目录下的config.yml
+#---------------------------------------------------#
+
+# HTTP 代理端口
+port: 7890
+
+# SOCKS5 代理端口
+socks-port: 7891
+
+# Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
+# redir-port: 7892
+# 允许局域网的连接（可用来共享代理）
+allow-lan: false
+
+# 规则模式：Rule（规则） / Global（全局代理）/ Direct（全局直连）
+mode: Rule
+
+# 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
+# 5 个级别：silent / info / warning / error / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
+log-level: info
+
+# Clash 的 RESTful API 
+external-controller: '127.0.0.1:9090'
+
+# 您可以将静态网页资源（如 clash-dashboard）放置在一个目录中，clash 将会服务于 `RESTful API/ui` 
+# 参数应填写配置目录的相对路径或绝对路径。
+# http://127.0.0.1:9090/ui/#/
+# external-ui: folder
+#external-ui: dashboard_yacd    #yacd面板：https://github.com/haishanh/yacd
+external-ui: dashboard_Razord #Razord面板：http://clash.razord.top/#/proxies
+
+# RESTful API 的口令 (可选)
+# secret: ""
+# 本地 SOCKS5 / HTTP(S) 服务认证
+# authentication:
+#  - "user1:pass1"
+#  - "user2:pass2"
+# 实验性功能
+experimental:
+  ignore-resolve-fail: true # 忽略 DNS 解析失败，默认值为 true
+
+# 代理组
+# 下面这3个不要引到订阅里去 要不会出错
+# Will be ignored after profile selection
+Proxy:
+  - name: 网易云解锁（本地）
+    type: http
+    server: 127.0.0.1
+    port: "11685"
+    skip-cert-verify: true
+Proxy Group:
+  - name: 🎵 Netease Music
+    type: select
+    proxies:
+      - 网易云解锁（本地）
+      - DIRECT
+Rule:
+  - DOMAIN,api.iplay.163.com,🎵 Netease Music
+  - DOMAIN,apm3.music.163.com,🎵 Netease Music
+  - DOMAIN,apm.music.163.com,🎵 Netease Music
+  - DOMAIN,interface3.music.163.com,🎵 Netease Music
+  - DOMAIN,interface.music.163.com,🎵 Netease Music
+  - DOMAIN,music.163.com,🎵 Netease Music
+  - IP-CIDR,39.105.63.80/32,🎵 Netease Music
+  - IP-CIDR,45.254.48.1/32,🎵 Netease Music
+  - IP-CIDR,47.100.127.239/32,🎵 Netease Music
+  - IP-CIDR,59.111.160.195/32,🎵 Netease Music
+  - IP-CIDR,59.111.160.197/32,🎵 Netease Music
+  - IP-CIDR,59.111.181.35/32,🎵 Netease Music
+  - IP-CIDR,59.111.181.38/32,🎵 Netease Music
+  - IP-CIDR,59.111.181.60/32,🎵 Netease Music
+  - IP-CIDR,101.71.154.241/32,🎵 Netease Music
+  - IP-CIDR,103.126.92.132/32,🎵 Netease Music
+  - IP-CIDR,103.126.92.133/32,🎵 Netease Music
+  - IP-CIDR,112.13.119.17/32,🎵 Netease Music
+  - IP-CIDR,112.13.122.1/32,🎵 Netease Music
+  - IP-CIDR,115.236.118.33/32,🎵 Netease Music
+  - IP-CIDR,115.236.121.1/32,🎵 Netease Music
+  - IP-CIDR,118.24.63.156/32,🎵 Netease Music
+  - IP-CIDR,193.112.159.225/32,🎵 Netease Music
+  - IP-CIDR,223.252.199.66/32,🎵 Netease Music
+  - IP-CIDR,223.252.199.67/32,🎵 Netease Music
+  - DOMAIN,admusicpic.music.126.net,REJECT
+  - DOMAIN,iadmat.nosdn.127.net,REJECT
+  - DOMAIN,iadmusicmat.music.126.net,REJECT
+  - DOMAIN,iadmusicmatvideo.music.126.net,REJECT
+  - MATCH,DIRECT
+
+#dns:
+# enable: true
+#  ipv6: false
+#  listen: 0.0.0.0:53
+#  enhanced-mode: fake-ip # 模式：redir-host或fake-ip
+#     # fake-ip-range: 198.18.0.1/16 # 如果你不知道这个参数的作用，请勿修改
+#     # 实验性功能 hosts, 支持通配符 (例如 *.clash.dev 甚至 *.foo.*.example.com)
+#     # 静态的域名 比 通配域名 具有更高的优先级 (foo.example.com 优先于 *.example.com)
+#     # 注意: hosts 在 fake-ip 模式下不生效
+#  hosts:
+#     '*.clash.dev': 127.0.0.1
+#     'alpha.clash.dev': '::1'
+#  nameserver:
+#    - 223.5.5.5 # 阿里DNS
+#     - 180.76.76.76 # 百度DNS
+#     - 119.29.29.29 # 腾讯DNS
+#     - 117.50.10.10 # ONE DNS纯净版
+#     - 114.114.114.114 # 114DNS
+#  fallback:
+#     - 8.8.8.8 # 谷歌DNS
+#     - 1.1.1.1 # Cloudflare DNS
+#     - tls://dns.rubyfish.cn:853
+#     - tls://1.0.0.1:853
+#     - tls://dns.google:853
+#     #- https://dns.rubyfish.cn/dns-query
+#     #- https://cloudflare-dns.com/dns-query
+#     #- https://dns.google/dns-query
+# fallback-filter:
+#   geoip: true # 默认
+#   ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
+#     - 240.0.0.0/4
+# 1. clash DNS 请求逻辑：
+#   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
+#   (2) clash 将选取 nameserver 列表内，解析最快的结果。
+#   (3) 若解析结果中，IP 地址属于 国外，那么 clash 将选择 fallback 列表内，解析最快的结果。
+#
+#   因此，我在 nameserver 和 fallback 内都放置了无污染、解析速度较快的国内 DNS 服务器，以达到最快的解析速度。
+#   但是 fallback 列表内服务器会用在解析境外网站，为了结果绝对无污染，我仅保留了支持 DoT/DoH 的两个服务器。
+#
+# 2. clash DNS 配置注意事项：
+#   (1) 如果您为了确保 DNS 解析结果无污染，请仅保留列表内以 tls:// 或 https:// 开头的 DNS 服务器，但是通常对于国内域名没有必要。
+#   (2) 如果您不在乎可能解析到污染的结果，更加追求速度。请将 nameserver 列表的服务器插入至 fallback 列表内，并移除重复项。
+#
+# 3. 关于 DNS over HTTPS (DoH) 和 DNS over TLS (DoT) 的选择：
+#   对于两项技术双方各执一词，而且会无休止的争论，各有利弊。各位请根据具体需求自行选择，但是配置文件内默认启用 DoT，因为目前国内没有封锁或管制。
+#   DoH: 以 https:// 开头的 DNS 服务器。拥有更好的伪装性，且几乎不可能被运营商或网络管理封锁，但查询效率和安全性可能略低。
+#   DoT: 以 tls:// 开头的 DNS 服务器。拥有更高的安全性和查询效率，但端口有可能被管制或封锁。
+#   若要了解更多关于 DoH/DoT 相关技术，请自行查阅规范文档。

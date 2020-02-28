@@ -1,0 +1,1 @@
+WSCript.Sleep WScript.Arguments.Item(0)
