@@ -38,7 +38,7 @@ set !outval!="!%outval%!"
 goto :eof
 
 rem getfromjson: %1: jsondata var %2: key %3: var to save
-:__deprecated_getfromjson
+:getfromjson
 call misc.bat :getcmdret "cmdutils --jsonget %~1 %~2" "%~3"
 goto :eof
 
@@ -48,7 +48,7 @@ call misc.bat :getcmdret "cmdutils --jsongetlist %~1 %~2" "%~2"
 goto :eof
 
 rem getfromjson: %1: jsondata var %2: key %3: var to save
-:getfromjson
+:__deprecated_getfromjson
 set left_br={
 set right_br=}
 call misc.bat :trim_of "data" "left_br"
@@ -110,7 +110,10 @@ set data=
 call misc.bat :getcmdret "curl -s -m 1 !controller_url!/configs" "data"
 if not "!data!" == "" (
   set clash_running=1
-  call :getfromjson4 "data" "mode" "current_mode" "allow-lan" "current_allow_lan" "port" "current_port" "_" "_"
+  rem call :getfromjson4 "data" "mode" "current_mode" "allow-lan" "current_allow_lan" "port" "current_port" "_" "_"
+  call :getfromjson "data" "mode" "current_mode"
+  call :getfromjson "data" "allow-lan" "current_allow_lan"
+  call :getfromjson "data" "port" "current_port"
 ) else (
   set current_mode=
   set current_allow_lan=
@@ -194,13 +197,11 @@ cscript /B /Nologo "%~dp0\start-clash.vbs"
 goto :eof
 
 :enable-sysproxy
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f >NUL
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /d "127.0.0.1:7890" /f >NUL
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyOverride /t REG_SZ /d "" /f >NUL
+sysproxy global 127.0.0.1:7890 localhost;127.*;10.*
 goto :eof
 
 :disable-sysproxy
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f >NUL
+sysproxy set 1
 goto :eof
 
 :stop-clash

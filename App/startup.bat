@@ -1,5 +1,5 @@
 @echo off
-chcp 65001>nul
+chcp 936>nul
 >NUL 2>&1 REG.exe query "HKU\S-1-5-19" || (
     ECHO SET UAC = CreateObject^("Shell.Application"^) > "%TEMP%\Getadmin.vbs"
     ECHO UAC.ShellExecute "%~f0", "%*", "", "runas", 1 >> "%TEMP%\Getadmin.vbs"
@@ -8,15 +8,17 @@ chcp 65001>nul
     Exit /b
 )
 
-:startup_menu
-title æ·»åŠ  Clash å¼€æœºå¯åŠ¨
-cd "%~dp0"
+:init
+title Ìí¼Ó Clash ¿ª»úÆô¶¯
+cd /d "%~dp0"
 setlocal enabledelayedexpansion
+
+:startup_menu
 call misc.bat :arrinit "startup_options"
-call misc.bat :arrappend "startup_options" "æ·»åŠ å¼€æœºå¯åŠ¨"
-call misc.bat :arrappend "startup_options" "åˆ é™¤å¼€æœºå¯åŠ¨"
-call misc.bat :arrappend "startup_options" "å…³é—­"
-call misc.bat :makemenu "- å¼€æœºå¯åŠ¨" "startup_options" "EDX" "è¯·é€‰æ‹©ï¼š"
+call misc.bat :arrappend "startup_options" "Ìí¼Ó¿ª»úÆô¶¯"
+call misc.bat :arrappend "startup_options" "É¾³ý¿ª»úÆô¶¯"
+call misc.bat :arrappend "startup_options" "¹Ø±Õ"
+call misc.bat :makemenu "- ¿ª»úÆô¶¯" "startup_options" "EDX" "ÇëÑ¡Ôñ£º"
 if "!selection!" == "E" (
   call :add-startup
   goto startup_menu
@@ -25,19 +27,16 @@ if "!selection!" == "D" (
   call :del-startup
   goto startup_menu
 )
-if "!selection!" == "X" (
-  goto :eof
-)
-goto startup_menu
+goto :eof
 
 :add-startup
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "clash-web" /t REG_SZ /d "\"%~DP0start-clash.vbs\"" /f
-echo æ·»åŠ æˆåŠŸï¼
+echo Ìí¼Ó³É¹¦£¡
 call misc.bat :sleep 2000
 goto :eof
 
 :del-startup
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "clash-web"  /f>NUL 2>NUL
-echo åˆ é™¤æˆåŠŸï¼
+echo É¾³ý³É¹¦£¡
 call misc.bat :sleep 2000
 goto :eof

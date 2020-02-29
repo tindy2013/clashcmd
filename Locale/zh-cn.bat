@@ -44,7 +44,7 @@ set loc_core_terminating=正在关闭 Clash 核心...
 set loc_core_terminated=Clash 核心已关闭。
 set loc_core_stop_before_start=当前核心未运行！请先启动！
 
-set loc_core_saving_selection=正在尝试保存 ?profile? 配置文件的策略组选项
+set loc_core_saving_selection=正在尝试保存 ?profile? 配置文件的策略组选项...
 set loc_core_fetch_status_failed=无法读取 Clash 运行模式！请检查核心运行情况后重试！
 
 set loc_core_mode_global=全局

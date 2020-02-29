@@ -7,7 +7,7 @@ set version=V1.1.2
 set gen_ini_path=App\subconverter\generate.ini
 set pref_ini_path=pref.ini
 set PATH="%~dp0";"%~dp0App";%PATH%
-cd /d %~dp0
+cd /d "%~dp0"
 call :readpref
 if "!locale!" == "" set locale=zh-cn
 call Locale\!locale!.bat :localeinit
@@ -17,7 +17,6 @@ mode con cols=80 lines=40
 color f1
 mkdir Profile\selection>nul 2>&1
 title !title!
-
 
 :main
 call :readsub
