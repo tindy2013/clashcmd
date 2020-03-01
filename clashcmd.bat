@@ -3,7 +3,7 @@ chcp 936>nul
 setlocal enabledelayedexpansion
 
 :init
-set version=V1.1.2
+set version=V1.1.3
 set gen_ini_path=App\subconverter\generate.ini
 set pref_ini_path=pref.ini
 set PATH="%~dp0";"%~dp0App";%PATH%
