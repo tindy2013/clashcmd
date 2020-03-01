@@ -192,7 +192,6 @@ start !controller_url!/ui/#/proxies
 goto :eof
 
 :start-clash
-taskkill /IM clash-win64.exe >NUL 2>NUL
 cscript /B /Nologo "%~dp0\start-clash.vbs"
 goto :eof
 

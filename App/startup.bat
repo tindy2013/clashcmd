@@ -30,7 +30,7 @@ if "!selection!" == "D" (
 goto :eof
 
 :add-startup
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "clash-web" /t REG_SZ /d "\"%~DP0start-clash.vbs\"" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "clash-web" /t REG_SZ /d "\"%~DP0startup_agent.bat\"" /f
 echo Ìí¼Ó³É¹¦£¡
 call misc.bat :sleep 2000
 goto :eof

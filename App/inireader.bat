@@ -40,7 +40,7 @@ goto :eof
 rem inireader_parse: %1: file path
 :inireader_parse
 if not exist "%~1" (
-  echo "Target not exist!"
+  echo Target not exist!
   goto :eof
 )
 if "!inireader_current_instance!" == "" (

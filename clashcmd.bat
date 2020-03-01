@@ -114,7 +114,7 @@ if "!selection!" == "R" (
   call misc.bat :sleep 2000
   if "!apply_on_startup!" == "true" (
     if not "!current_profile!" == "" (
-      call :applysub
+      call :applysub "force"
     )
   )
   if "!enable_proxy_on_startup!" == "true" (
@@ -138,7 +138,6 @@ if "!selection!" == "E" (
   echo !loc_core_terminating!
   call clash_controller.bat :stop-clash
   echo !loc_core_terminated!
-  call :coreclearapplied
   call misc.bat :sleep 2000
   goto coreopt
 )
@@ -346,7 +345,7 @@ if "!update_on_add!" == "true" (
   if "!apply_on_add!" == "true" ( call :doupdate "noapply" ) else ( call :doupdate )
 )
 if "!apply_on_add!" == "true" (
-    call :applysub
+    call :applysub "force"
 )
 goto :eof
 
@@ -449,7 +448,7 @@ if !errorlevel! leq !choiceendindex! (
     if "!apply_on_select!" == "true" ( call :doupdate "noapply" ) else ( call :doupdate )
   )
   if "!apply_on_select!" == "true" (
-    call :applysub
+    call :applysub "force"
   )
 ) else (
   if "!errorlevel!" == "!next_index!" (
@@ -495,7 +494,7 @@ if !errorlevel! neq 0 (
   if "!apply_on_update!" == "true" (
     if not "%~1" == "noapply" (
       if not "!current_profile!" == "" (
-        call :applysub
+        call :applysub "force"
         goto doupdate_end
       )
     )
@@ -513,9 +512,13 @@ if "!current_profile!" == "" (
 cls
 echo.
 echo   - !loc_profile_apply!
-echo.
-call misc.bat :substitute "loc_profile_apply_sure" "message" "profile" "current_profile"
-call misc.bat :makechoice "!message!" "0" "0" "YN"
+if "%~1" == "force" (
+  set errorlevel=1
+) else (
+  echo.
+  call misc.bat :substitute "loc_profile_apply_sure" "message" "profile" "current_profile"
+  call misc.bat :makechoice "!message!" "0" "0" "YN"
+)
 if !errorlevel! equ 1 (
   echo.
   echo !loc_profile_apply_pre!

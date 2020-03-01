@@ -188,6 +188,7 @@ for /l %%a in (%~2,1,%~3) do (
 )
 set options=!options!%~4
 :launchchoice
+set errorlevel=
 choice /C !options! /M "%~1"
 goto :eof
 
