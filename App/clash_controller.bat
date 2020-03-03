@@ -204,6 +204,6 @@ sysproxy set 1
 goto :eof
 
 :stop-clash
-taskkill /IM clash-win64.exe >NUL 2>NUL
+taskkill /IM clash-core.exe >NUL 2>NUL
 call :disable-sysproxy
 goto :eof
