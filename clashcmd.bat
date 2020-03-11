@@ -528,6 +528,7 @@ if !errorlevel! equ 1 (
   call :coregetselection
   call inireader.bat :inireader_setinstance "sub"
   call inireader.bat :inireader_get "!current_profile!" "path" "filepath"
+  copy  App\subconverter\!filepath! Profile\config.yaml
   echo !loc_profile_apply_on!
   call clash_controller.bat :setprofile "%~dp0App\subconverter\!filepath!"
   if not "!setprofile_success!" == "1" (
