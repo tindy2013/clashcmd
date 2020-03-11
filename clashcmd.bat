@@ -333,6 +333,9 @@ if !errorlevel! equ 2 (
   call inireader.bat :inireader_set "!sub_name!" "direct" "true"
 ) else (
   call inireader.bat :inireader_set "!sub_name!" "target" "clashr"
+  if exist "App\subconverter\config.ini" (
+  call inireader.bat :inireader_set "!sub_name!" "config" "config.ini"
+  )
 )
 call inireader.bat :inireader_write "!gen_ini_path!"
 call inireader.bat :inireader_setinstance "pref"
